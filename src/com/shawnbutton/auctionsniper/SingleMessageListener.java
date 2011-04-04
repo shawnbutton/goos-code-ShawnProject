@@ -20,6 +20,7 @@ public class SingleMessageListener implements MessageListener {
     }
 
     public void receivesAMessage() throws InterruptedException {
-        assertThat("Message", messages.poll(5, TimeUnit.SECONDS), is(notNullValue()));
+        Message message = messages.poll(25, TimeUnit.SECONDS);
+        assertThat("Message", message, is(notNullValue()));
     }
 }
