@@ -3,6 +3,7 @@ package com.shawnbutton.auctionsniper.endToEnd;
 import com.shawnbutton.auctionsniper.Main;
 
 import static com.shawnbutton.auctionsniper.endToEnd.FakeAuctionServer.*;
+import static org.junit.Assert.fail;
 
 public class ApplicationRunner {
 
@@ -54,6 +55,8 @@ public class ApplicationRunner {
     }
 
     public void showsSniperHasLostAuction() {
-        //To change body of created methods use File | Settings | File Templates.
+
+        driver.showsSniperStatus(STATUS_LOST);
+
     }
 }

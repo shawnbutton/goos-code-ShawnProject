@@ -11,6 +11,8 @@ import javax.swing.*;
 
 public class Main {
 
+    @SuppressWarnings("unused") private Chat notToBeGCd;
+
     private static final int ARG_HOSTNAME = 0;
     private static final int ARG_USERNAME = 1;
     private static final int ARG_PASSWORD = 2;
@@ -23,8 +25,9 @@ public class Main {
     public static final String MAIN_WINDOW_NAME = "MainWindow";
     public static final String SNIPER_STATUS_NAME = "SniperStatus";
     public static final String STATUS_JOINING = "joining";
+    public static final String STATUS_LOST = "lost";
 
-    private MainWindow ui;
+    private static MainWindow ui;
 
     public Main() throws Exception {
         startUserInterface();
@@ -34,12 +37,15 @@ public class Main {
         Main main = new Main();
         XMPPConnection connection = connectTo(args[ARG_HOSTNAME], args[ARG_USERNAME], args[ARG_PASSWORD]);
 
-        Chat chat = connection.getChatManager().createChat(
-                auctionId(args[ARG_ITEM_ID], connection),
+        Chat chat = connection.getChatManager().createChat( auctionId(args[ARG_ITEM_ID], connection),
                 new MessageListener() {
                     public void processMessage(Chat aChat, Message message) {
-                        System.out.println("------------> What! Got a message?");
-// nothing here yet
+                        SwingUtilities.invokeLater(new Runnable() {
+                            public void run() {
+                                ui.showStatus(STATUS_LOST);
+                            }
+                        });
+
                     }
                 });
 

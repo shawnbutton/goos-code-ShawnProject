@@ -12,15 +12,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class SingleMessageListener implements MessageListener {
-    private final ArrayBlockingQueue<Message> messages =
-            new ArrayBlockingQueue<Message>(1);
+    private final ArrayBlockingQueue<Message> messages = new ArrayBlockingQueue<Message>(1);
 
     public void processMessage(Chat chat, Message message) {
         messages.add(message);
     }
 
     public void receivesAMessage() throws InterruptedException {
-        Message message = messages.poll(25, TimeUnit.SECONDS);
+        Message message = messages.poll(6, TimeUnit.SECONDS);
         assertThat("Message", message, is(notNullValue()));
     }
 }
