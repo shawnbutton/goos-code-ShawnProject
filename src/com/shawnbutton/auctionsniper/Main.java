@@ -7,6 +7,7 @@ import javax.swing.*;
 public class Main {
     public static final String MAIN_WINDOW_NAME = "MainWindow";
     public static final String SNIPER_STATUS_NAME = "SniperStatus";
+    public static final String STATUS_JOINING = "joining";
 
     private MainWindow ui;
 
