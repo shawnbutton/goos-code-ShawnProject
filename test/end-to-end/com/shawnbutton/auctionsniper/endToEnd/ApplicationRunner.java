@@ -1,4 +1,6 @@
 package com.shawnbutton.auctionsniper.endToEnd;
+import com.shawnbutton.auctionsniper.Main;
+
 import static com.shawnbutton.auctionsniper.endToEnd.FakeAuctionServer.*;
 
 public class ApplicationRunner {

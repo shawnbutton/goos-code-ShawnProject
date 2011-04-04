@@ -1,4 +1,4 @@
-package com.shawnbutton.auctionsniper.endToEnd;
+package com.shawnbutton.auctionsniper;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.MessageListener;

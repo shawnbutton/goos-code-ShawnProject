@@ -1,4 +1,4 @@
-package com.shawnbutton.auctionsniper.endToEnd;
+package com.shawnbutton.auctionsniper;
 
 public class Main {
     public static final String MAIN_WINDOW_NAME = "MainWindow";

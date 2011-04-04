@@ -1,5 +1,6 @@
 package com.shawnbutton.auctionsniper.endToEnd;
 
+import com.shawnbutton.auctionsniper.SingleMessageListener;
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.XMPPConnection;
