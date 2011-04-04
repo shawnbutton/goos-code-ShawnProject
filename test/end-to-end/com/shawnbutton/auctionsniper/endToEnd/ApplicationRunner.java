@@ -1,10 +1,13 @@
 package com.shawnbutton.auctionsniper.endToEnd;
+import static com.shawnbutton.auctionsniper.endToEnd.FakeAuctionServer.*;
 
 public class ApplicationRunner {
 
     public static final String SNIPER_ID = "sniper";
     public static final String SNIPER_PASSWORD = "sniper";
     private AuctionSniperDriver driver;
+    private static final String STATUS_JOINING = "joining";
+    private static final String STATUS_LOST = "lost";
 
     public void startBiddingIn(final FakeAuctionServer auction) {
 
@@ -47,4 +50,7 @@ public class ApplicationRunner {
         }
     }
 
+    public void showsSniperHasLostAuction() {
+        //To change body of created methods use File | Settings | File Templates.
+    }
 }
