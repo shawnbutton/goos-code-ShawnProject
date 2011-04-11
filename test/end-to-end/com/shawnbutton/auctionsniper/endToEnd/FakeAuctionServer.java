@@ -7,6 +7,8 @@ import org.jivesoftware.smack.XMPPConnection;
 import org.jivesoftware.smack.XMPPException;
 import org.jivesoftware.smack.packet.Message;
 
+import static java.lang.String.format;
+
 public class FakeAuctionServer {
 
     private final SingleMessageListener messageListener = new SingleMessageListener();
@@ -26,7 +28,7 @@ public class FakeAuctionServer {
 
     public void startSellingItem() throws XMPPException {
         connection.connect();
-        connection.login(String.format(ITEM_ID_AS_LOGIN, itemId),
+        connection.login(format(ITEM_ID_AS_LOGIN, itemId),
                 AUCTION_PASSWORD, AUCTION_RESOURCE);
         connection.getChatManager().addChatListener(
                 new ChatManagerListener() {
