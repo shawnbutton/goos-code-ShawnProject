@@ -35,9 +35,13 @@ public class Main {
 
     public static void main(String... args) throws Exception {
         Main main = new Main();
-        XMPPConnection connection = connectTo(args[ARG_HOSTNAME], args[ARG_USERNAME], args[ARG_PASSWORD]);
+        XMPPConnection connection = connection(args[ARG_HOSTNAME], args[ARG_USERNAME], args[ARG_PASSWORD]);
+        main.joinAuction(connection, args[ARG_ITEM_ID]);
 
-        Chat chat = connection.getChatManager().createChat( auctionId(args[ARG_ITEM_ID], connection),
+    }
+
+    private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException {
+        Chat chat = connection.getChatManager().createChat( auctionId(itemId, connection),
                 new MessageListener() {
                     public void processMessage(Chat aChat, Message message) {
                         SwingUtilities.invokeLater(new Runnable() {
@@ -49,11 +53,13 @@ public class Main {
                     }
                 });
 
+        this.notToBeGCd = chat;
+
         chat.sendMessage(new Message());
     }
 
 
-    private static XMPPConnection connectTo(String hostname, String username, String password)  throws XMPPException {
+    private static XMPPConnection connection(String hostname, String username, String password)  throws XMPPException {
         XMPPConnection connection = new XMPPConnection(hostname);
         connection.connect();
         connection.login(username, password, AUCTION_RESOURCE);
