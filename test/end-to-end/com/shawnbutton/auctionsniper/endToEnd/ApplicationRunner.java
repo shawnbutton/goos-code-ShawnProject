@@ -57,11 +57,6 @@ public class ApplicationRunner {
         }
     }
 
-    public void showSniperHasLostAuction() {
-        driver.showsSniperStatus(STATUS_LOST);
-
-    }
-
     public void stop() {
         if (driver != null) {
             driver.dispose();
