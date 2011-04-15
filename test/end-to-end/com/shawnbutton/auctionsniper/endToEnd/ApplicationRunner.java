@@ -1,6 +1,7 @@
 package com.shawnbutton.auctionsniper.endToEnd;
 
 import com.shawnbutton.auctionsniper.Main;
+import com.shawnbutton.auctionsniper.ui.MainWindow;
 
 import javax.swing.*;
 
@@ -14,6 +15,8 @@ public class ApplicationRunner {
     private AuctionSniperDriver driver;
     private static final String STATUS_JOINING = "joining";
     private static final String STATUS_LOST = "lost";
+    public static final String SNIPER_XMPP_ID = "sniper@shawn-buttons-macbook-pro.local/Auction";
+    private static final String STATUS_BIDDING = "bidding";
 
     public void startBiddingIn(final FakeAuctionServer auction) {
 
@@ -66,6 +69,11 @@ public class ApplicationRunner {
     public void showsSniperHasLostAuction() {
 
         driver.showsSniperStatus(STATUS_LOST);
+
+    }
+
+    public void hasShownSniperIsBidding() {
+        driver.showsSniperStatus(STATUS_BIDDING);
 
     }
 }
