@@ -18,7 +18,7 @@ public class AuctionMessageTranslatorTest {
     private final AuctionMessageTranslator translator = new AuctionMessageTranslator(listener);
 
     @Test
-    public void notfies_Auction_Closed_When_Close_Message_Received() {
+    public void notifies_Auction_Closed_When_Close_Message_Received() {
 
         context.checking(new Expectations() {{
             oneOf(listener).auctionClosed();
@@ -46,6 +46,5 @@ public class AuctionMessageTranslatorTest {
 
         translator.processMessage(UNUSED_CHAT, message);
     }
-
 
 }
