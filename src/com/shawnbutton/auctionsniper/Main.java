@@ -95,4 +95,8 @@ public class Main implements AuctionEventListener {
 
     }
 
+    public void currentPrice(int i, int i1) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
 }
