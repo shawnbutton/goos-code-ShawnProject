@@ -47,16 +47,7 @@ public class Main {
     private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException {
         disconnectWhenUICloses(connection);
         Chat chat = connection.getChatManager().createChat( auctionId(itemId, connection),
-                new MessageListener() {
-                    public void processMessage(Chat aChat, Message message) {
-                        SwingUtilities.invokeLater(new Runnable() {
-                            public void run() {
-                                ui.showStatus(STATUS_LOST);
-                            }
-                        });
-
-                    }
-                });
+                new AuctionMessageTranslator());
 
         this.notToBeGCd = chat;
 
@@ -93,4 +84,14 @@ public class Main {
         });
     }
 
+    private static class AuctionMessageTranslator implements MessageListener {
+        public void processMessage(Chat aChat, Message message) {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    ui.showStatus(STATUS_LOST);
+                }
+            });
+
+        }
+    }
 }
