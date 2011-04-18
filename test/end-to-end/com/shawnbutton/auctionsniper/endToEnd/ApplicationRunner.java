@@ -15,7 +15,7 @@ public class ApplicationRunner {
     private AuctionSniperDriver driver;
     private static final String STATUS_JOINING = "joining";
     private static final String STATUS_LOST = "lost";
-    public static final String SNIPER_XMPP_ID = "sniper@shawn-buttons-macbook-pro.local/Auction";
+    public static final String SNIPER_XMPP_ID = "sniper@localhost/Auction";
     private static final String STATUS_BIDDING = "bidding";
 
     public void startBiddingIn(final FakeAuctionServer auction) {
