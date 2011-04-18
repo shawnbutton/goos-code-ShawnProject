@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Main {
+public class Main implements AuctionEventListener {
 
     @SuppressWarnings("unused") private Chat notToBeGCd;
 
@@ -46,8 +46,9 @@ public class Main {
 
     private void joinAuction(XMPPConnection connection, String itemId) throws XMPPException {
         disconnectWhenUICloses(connection);
+
         Chat chat = connection.getChatManager().createChat( auctionId(itemId, connection),
-                new AuctionMessageTranslator());
+                new AuctionMessageTranslator(this));
 
         this.notToBeGCd = chat;
 
@@ -84,14 +85,14 @@ public class Main {
         });
     }
 
-    private static class AuctionMessageTranslator implements MessageListener {
-        public void processMessage(Chat aChat, Message message) {
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    ui.showStatus(STATUS_LOST);
-                }
-            });
+    public void auctionClosed() {
 
-        }
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ui.showStatus(STATUS_LOST);
+            }
+        });
+
     }
+
 }
