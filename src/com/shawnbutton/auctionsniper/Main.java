@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Main implements AuctionEventListener {
+public class Main implements SniperListener {
 
     @SuppressWarnings("unused") private Chat notToBeGCd;
 
@@ -48,7 +48,7 @@ public class Main implements AuctionEventListener {
         disconnectWhenUICloses(connection);
 
         Chat chat = connection.getChatManager().createChat( auctionId(itemId, connection),
-                new AuctionMessageTranslator(this));
+                new AuctionMessageTranslator(new AuctionSniper(this)));
 
         this.notToBeGCd = chat;
 
@@ -97,6 +97,14 @@ public class Main implements AuctionEventListener {
 
     public void currentPrice(int i, int i1) {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void sniperLost() {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                ui.showStatus(MainWindow.STATUS_LOST);
+            }
+        });
     }
 
 }
