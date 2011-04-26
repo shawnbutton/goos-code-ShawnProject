@@ -107,4 +107,8 @@ public class Main implements SniperListener {
         });
     }
 
+    public void sniperBidding() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
 }

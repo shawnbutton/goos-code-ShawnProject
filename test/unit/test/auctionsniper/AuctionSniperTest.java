@@ -1,5 +1,6 @@
 package test.auctionsniper;
 
+import com.shawnbutton.auctionsniper.Auction;
 import com.shawnbutton.auctionsniper.AuctionSniper;
 import com.shawnbutton.auctionsniper.SniperListener;
 import org.jmock.Expectations;
@@ -10,9 +11,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(JMock.class)
 public class AuctionSniperTest {
+
     private final Mockery context = new Mockery();
-    private final SniperListener sniperListener =
-            context.mock(SniperListener.class);
+    private final SniperListener sniperListener = context.mock(SniperListener.class);
+    private final Auction auction = context.mock(Auction.class);
     private final AuctionSniper sniper = new AuctionSniper(sniperListener);
 
     @Test
@@ -25,4 +27,18 @@ public class AuctionSniperTest {
         sniper.auctionClosed();
 
     }
+
+
+    @Test
+    public void
+    bidsHigherAndReportsBiddingWhenNewPriceArrives() {
+        final int price = 1001;
+        final int increment = 25;
+        context.checking(new Expectations() {{
+            one(auction).bid(price + increment);
+            atLeast(1).of(sniperListener).sniperBidding();
+        }});
+        sniper.currentPrice(price, increment);
+    }
+
 }
