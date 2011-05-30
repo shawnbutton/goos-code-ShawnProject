@@ -1,4 +1,4 @@
-package test.auctionsniper;
+package com.shawnbutton.auctionsniper.unittest;
 
 import com.shawnbutton.auctionsniper.AuctionEventListener;
 import com.shawnbutton.auctionsniper.AuctionMessageTranslator;

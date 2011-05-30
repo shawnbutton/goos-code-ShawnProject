@@ -1,4 +1,4 @@
-package test.auctionsniper;
+package com.shawnbutton.auctionsniper.unittest;
 
 import com.shawnbutton.auctionsniper.Auction;
 import com.shawnbutton.auctionsniper.AuctionSniper;
