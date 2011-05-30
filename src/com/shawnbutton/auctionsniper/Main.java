@@ -12,7 +12,7 @@ import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class Main implements SniperListener {
+public class Main {
 
     @SuppressWarnings("unused") private Chat notToBeGCd;
 
@@ -55,7 +55,7 @@ public class Main implements SniperListener {
 
         Auction auction = new XMPPAuction(chat);
 
-        chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, this)));
+        chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, new SniperStateDisplayer())));
 
         auction.join();
 
@@ -106,20 +106,24 @@ public class Main implements SniperListener {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    public void sniperLost() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ui.showStatus(MainWindow.STATUS_LOST);
-            }
-        });
-    }
+    public class SniperStateDisplayer implements SniperListener {
 
-    public void sniperBidding() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                ui.showStatus(MainWindow.STATUS_BIDDING);
-            }
-        });
-    }
+        public void sniperLost() {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    ui.showStatus(MainWindow.STATUS_LOST);
+                }
+            });
+        }
+
+        public void sniperBidding() {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    ui.showStatus(MainWindow.STATUS_BIDDING);
+                }
+            });
+        }
+
+        }
 
 }
