@@ -30,9 +30,19 @@
                debug="on"/>
     </target>
 
-    <target name="test.compile"
+    <target name="test.compile.endtoend"
             depends="app.compile">
         <property name="test.src.dir" location="${test.dir}/end-to-end"/>
+        <mkdir dir="${test.classes.dir}"/>
+        <javac destdir="${test.classes.dir}"
+               srcdir="${test.src.dir}"
+               classpathref="test.lib.path"
+               debug="on"/>
+    </target>
+
+    <target name="test.compile.unit"
+            depends="app.compile">
+        <property name="test.src.dir" location="${test.dir}/unit"/>
         <mkdir dir="${test.classes.dir}"/>
         <javac destdir="${test.classes.dir}"
                srcdir="${test.src.dir}"
@@ -44,12 +54,18 @@
         <waitfor checkevery="1" checkeveryunit="second" maxwait="20" timeoutproperty="openfire.is.down">
             <http url="http://localhost:9090"/>
         </waitfor>
+        <fail message="OpenFire is not running" if="openfire.is.down"/>
+
     </target>
 
-    <target name="test.run"
+    <target name="test.run.all"
             description="Run the tests"
-            depends="test.compile, openfire.check">
-        <fail message="OpenFire is not running" if="openfire.is.down"/>
+            depends="test.run.unit, test.run.endtoend">
+    </target>
+
+    <target name="test.run.endtoend"
+            description="Run the tests"
+            depends="openfire.check, test.compile.endtoend">
         <property name="test.reports.dir" location="${build.dir}/testreports"/>
         <mkdir dir="${test.reports.dir}"/>
         <junit>
@@ -64,7 +80,24 @@
         </junit>
     </target>
 
+    <target name="test.run.unit"
+            description="Run the tests"
+            depends="openfire.check, test.compile.unit">
+        <property name="test.reports.dir" location="${build.dir}/testreports"/>
+        <mkdir dir="${test.reports.dir}"/>
+        <junit>
+            <batchtest todir="${test.reports.dir}" haltonfailure="true" haltonerror="true">
+                <formatter type="plain"/>
+                <fileset dir="${test.dir}/unit" includes="**/*Test.java"/>
+            </batchtest>
+            <classpath>
+                <path refid="test.lib.path"/>
+                <path location="${test.classes.dir}"/>
+            </classpath>
+        </junit>
+    </target>
+
     <target name="build"
             description="Clean, build, and full test"
-            depends="clean, test.run"/>
+            depends="clean, test.run.all"/>
 </project>
