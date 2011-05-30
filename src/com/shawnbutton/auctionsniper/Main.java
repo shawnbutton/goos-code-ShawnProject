@@ -53,15 +53,7 @@ public class Main implements SniperListener {
 
         this.notToBeGCd = chat;
 
-        Auction auction = new Auction() {
-            public void bid(int amount) {
-                try {
-                    chat.sendMessage(String.format(BID_COMMAND_FORMAT, amount));
-                } catch (XMPPException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
+        Auction auction = new XMPPAuction(chat);
 
         chat.addMessageListener(new AuctionMessageTranslator(new AuctionSniper(auction, this)));
 
@@ -128,4 +120,19 @@ public class Main implements SniperListener {
         });
     }
 
+    private static class XMPPAuction implements Auction {
+        private final Chat chat;
+
+        public XMPPAuction(Chat chat) {
+            this.chat = chat;
+        }
+
+        public void bid(int amount) {
+            try {
+                chat.sendMessage(String.format(BID_COMMAND_FORMAT, amount));
+            } catch (XMPPException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
