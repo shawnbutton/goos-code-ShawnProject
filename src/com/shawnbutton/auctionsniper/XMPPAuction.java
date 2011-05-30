@@ -10,11 +10,21 @@ public class XMPPAuction implements Auction {
         this.chat = chat;
     }
 
+    public void join() {
+        sendMessage(Main.JOIN_COMMAND_FORMAT);
+
+    }
+
     public void bid(int amount) {
+        sendMessage(String.format(Main.BID_COMMAND_FORMAT, amount));
+    }
+
+    private void sendMessage(final String message) {
         try {
-            chat.sendMessage(String.format(Main.BID_COMMAND_FORMAT, amount));
+            chat.sendMessage(message);
         } catch (XMPPException e) {
             e.printStackTrace();
         }
     }
+
 }
