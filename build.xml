@@ -82,7 +82,7 @@
 
     <target name="test.run.unit"
             description="Run the tests"
-            depends="openfire.check, test.compile.unit">
+            depends="test.compile.unit">
         <property name="test.reports.dir" location="${build.dir}/testreports"/>
         <mkdir dir="${test.reports.dir}"/>
         <junit>
